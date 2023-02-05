@@ -3,7 +3,7 @@ tramp-interactive: An easier find-file for TRAMP
 
 This module provides a comfortable means to build the file name for `find-file` when accessing remote servers using ssh and TRAMP.
 
-Once installed in your Emacs configuration directory tree, add it using `use-package`:
+Once installed in the Emacs configuration directory tree, I add it using `use-package`:
 
 ```
 (use-package tramp-interactive
@@ -23,7 +23,7 @@ Once installed in your Emacs configuration directory tree, add it using `use-pac
 
 Variables to customise your environment:
 
-`tramp-default-user` will normally be your user in the system. When you access a remote server with this user, you tramp-interactive will suppress the `user@` part in the file spec
+`tramp-default-user` will normally be your user in the system. When you access a remote server with this user, `tramp-interactive` will suppress the `user@` part in the file spec
 
 `tramp-user-list` is a list of frequently used user names that will be used to auto-complete the user prompt.
 
