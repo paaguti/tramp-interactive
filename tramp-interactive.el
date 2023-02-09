@@ -4,13 +4,13 @@
 
 ;; Author: Pedro A. Aranda Gutiérrez
 ;; Version: 1.0
-;; Package-Requires:
+;; Package-Requires: https://github.com/paaguti/tramp-interactive/
 ;; Keywords: tramp, find-file
 ;; URL:
 
 ;;; Commentary:
 ;;
-;; This package provides two functions to make
+;; This package provides two interactive functions to make
 ;; find-file easier when files are accessed with TRAMP.
 ;; It asks for user, host and port and then
 ;; creates the initial value to delegate to `find-file'
@@ -29,6 +29,7 @@
   "The default user for TRAMP.
 Take tramp-default-user from the general tramp configuration
 or set it to the current user name if nil.")
+
 ;;;###autoload
 (defvar tramp-user-list (list (getenv "USER"))
   "The list of users you use frequently when accessing remote files.

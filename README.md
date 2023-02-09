@@ -23,8 +23,9 @@ Once installed in the Emacs configuration directory tree, I add it using `use-pa
 
 Variables to customise your environment:
 
-`tramp-user-default` will normally be your user in the system. If you don't use it, the package will try to use
-`tramp-default-user` defined in TRAMP or set it to `(getenv "USER")` as a last resort. 
+`tramp-user-default` will normally be your user in the system.
+If you don't set it, the package will use the value of `tramp-default-user`
+or  `(getenv "USER")` as a last resort if `tramp-default-user` is `nil`.
 When you access a remote server with this user, `tramp-interactive` will suppress the `user@` part in the file spec
 
 `tramp-user-list` is a list of frequently used user names that will be used to auto-complete the user prompt.
