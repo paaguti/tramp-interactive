@@ -23,19 +23,25 @@
 (provide 'tramp-interactive)
 (require 'tramp)
 
-
 ;;;###autoload
-(defvar tramp-default-user (getenv "USER")
-  "The default user for TRAMP")
+(defvar tramp-user-default
+  (if tramp-default-user tramp-default-user (getenv "USER"))
+  "The default user for TRAMP.
+Take tramp-default-user from the general tramp configuration
+or set it to the current user name if nil.")
 ;;;###autoload
 (defvar tramp-user-list (list (getenv "USER"))
-  "The list of users you use frequently when accessing remote files")
+  "The list of users you use frequently when accessing remote files.
+By default only the current user")
+
 ;;;###autoload
 (defvar tramp-host-list (list "localhost")
-  "The list of users you use frequently when accessing remote files")
+  "The list of users you use frequently when accessing remote files.
+By default only localhost")
 
 (defun tramp-initial-spec (user host port)
-  (let ((initial (if (string= user tramp-default-user)
+  "Create the initial spec from the `user', `host' and `port'"
+  (let ((initial (if (string= user tramp-user-default)
                   (format "/ssh:%s" host)
                   (format "/ssh:%s@%s" user host))))
     (setq initial (concat initial (if (= port 22) ":"
@@ -48,8 +54,8 @@
 default user is student"
   (interactive
    (let*
-       ((prompt-user (format "user (%s): " tramp-default-user))
-	(user (completing-read prompt-user tramp-user-list nil nil nil nil tramp-default-user))
+       ((prompt-user (format "user (%s): " tramp-user-default))
+	(user (completing-read prompt-user tramp-user-list nil nil nil nil tramp-user-default))
 	(port (read-number "port: ")))
      (list (read-file-name "Remote file:" (tramp-initial-spec user "localhost" port) nil 'confirm ))))
   (find-file filename))
@@ -61,12 +67,12 @@ default user is student"
   (interactive
    (let*
        ((default-host (car tramp-host-list))
-	(prompt-host (format "host (%s): " default-host))
-	(prompt-user (format "user (%s): " tramp-default-user))
-	(host ;; (read-string "host: "))
-	 (completing-read prompt-host tramp-host-list nil nil nil nil default-host ))
-	(user (completing-read prompt-user tramp-user-list nil nil nil nil tramp-default-user))
-	(port (read-number "port: " 22)))
+	      (prompt-host (format "host (%s): " default-host))
+	      (prompt-user (format "user (%s): " tramp-user-default))
+	      (host ;; (read-string "host: "))
+	       (completing-read prompt-host tramp-host-list nil nil nil nil default-host ))
+	      (user (completing-read prompt-user tramp-user-list nil nil nil nil tramp-user-default))
+	      (port (read-number "port: " 22)))
      (list (read-file-name "Remote file:" (tramp-initial-spec user host port) nil 'confirm ))))
   (find-file filename))
 
