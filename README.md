@@ -16,14 +16,16 @@ Once installed in the Emacs configuration directory tree, I add it using `use-pa
   (add-to-list 'tramp-remote-path "~/.local/bin")
   :config
   (message "Configuring tramp-interactive...")
-  (setq tramp-default-user (getenv "USER"))
-  (setq tramp-user-list `(,tramp-default-user "student"))
+  (setq tramp-user-default (getenv "USER"))
+  (setq tramp-user-list `(,tramp-user-default "student"))
   (setq tramp-host-list `("localhost" "osm12.local")))
 ```
 
 Variables to customise your environment:
 
-`tramp-default-user` will normally be your user in the system. When you access a remote server with this user, `tramp-interactive` will suppress the `user@` part in the file spec
+`tramp-user-default` will normally be your user in the system. If you don't use it, the package will try to use
+`tramp-default-user` defined in TRAMP or set it to `(getenv "USER")` as a last resort. 
+When you access a remote server with this user, `tramp-interactive` will suppress the `user@` part in the file spec
 
 `tramp-user-list` is a list of frequently used user names that will be used to auto-complete the user prompt.
 
